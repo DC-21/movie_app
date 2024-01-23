@@ -29,6 +29,7 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
 
           <div className="absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
             <h3 className="text-white">{movie.title}</h3>
+            <p className="text-gray-400 text-sm">{movie.overview}</p>
           </div>
 
           <button

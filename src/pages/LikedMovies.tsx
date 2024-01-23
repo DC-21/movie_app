@@ -5,7 +5,7 @@ import IonIcon from "@reacticons/ionicons";
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const LikedMovies: React.FC = () => {
-  const { likedMovies } = useMovieStore();
+  const { likedMovies, toggleLike } = useMovieStore(); // Access toggleLike function
 
   const likedMoviesData = Object.values(likedMovies);
 
@@ -31,7 +31,10 @@ const LikedMovies: React.FC = () => {
               <h3 className="text-white">{movie.title}</h3>
             </div>
 
-            <button className="absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center">
+            <button
+              className="absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center"
+              onClick={() => toggleLike(movie.id, movie)}
+            >
               <IonIcon className="text-red-700 text-lg" name="heart" />
             </button>
           </li>
