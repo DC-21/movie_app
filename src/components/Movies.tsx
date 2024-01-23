@@ -4,6 +4,7 @@ import { getPopularMovies } from "../Hooks/FetchMovies";
 import { Movie, PopularMoviesResponse } from "../types/interface";
 import IonIcon from "@reacticons/ionicons";
 import { useMovieStore } from "../store/store";
+import * as styles from "../styles/styles";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -19,12 +20,9 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
   const { likedMovies, toggleLike } = useMovieStore();
 
   return (
-    <ul className="grid lg:grid-cols-5 md:grid-cols-3 gap-6 mt-4">
+    <ul className={styles.movieGridContainer}>
       {movies.map((movie) => (
-        <li
-          key={movie.id}
-          className="flex flex-col shadow group cursor-pointer relative rounded-lg overflow-hidden"
-        >
+        <li key={movie.id} className={styles.movieItem}>
           <img
             src={
               movie.poster_path.startsWith("http")
@@ -32,13 +30,13 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
                 : `${BASE_IMAGE_URL}${movie.poster_path}`
             }
             alt={`${movie.title} Poster`}
-            className="w-full h-96 object-cover"
+            className={styles.movieImage}
           />
 
-          <div className="absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
-            <h3 className="text-white">{movie.title}</h3>
-            <p className="text-gray-400 text-sm py-1">{movie.release_date}</p>
-            <div className="flex items-center just py-1">
+          <div className={styles.movieOverlay}>
+            <h3 className={styles.movieTitle}>{movie.title}</h3>
+            <p className={styles.movieReleaseDate}>{movie.release_date}</p>
+            <div className={styles.movieRatingContainer}>
               {Array(5)
                 .fill(null)
                 .map((_, index) => (
@@ -48,14 +46,14 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
                     className={renderStarClassName(movie, index)}
                   />
                 ))}
-              <p className="text-gray-400 text-sm">{movie.vote_average}</p>
+              <p className={styles.movieRating}>{movie.vote_average}</p>
             </div>
-            <p className="text-gray-400 text-sm">{movie.overview}</p>
+            <p className={styles.movieOverview}>{movie.overview}</p>
           </div>
 
           <button
             onClick={() => toggleLike(movie.id, movie)}
-            className="absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center"
+            className={styles.movieButton}
           >
             <IonIcon
               className={`${
@@ -78,9 +76,6 @@ const Movies: React.FC = () => {
       {
         getNextPageParam: (lastPage) =>
           lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined,
-        onSuccess: (fetchedData) => {
-          console.log("Data fetched successfully:", fetchedData);
-        },
       }
     );
 
@@ -102,12 +97,12 @@ const Movies: React.FC = () => {
   );
 
   return (
-    <div className="text-lg w-full justify-center items-center p-10">
-      <h1 className="text-2xl font-bold underline">Popular Movies</h1>
+    <div className={styles.containerStyles}>
+      <h1 className={styles.titleStyles}>Popular Movies</h1>
       {allMovies && allMovies.length > 0 && <MovieGrid movies={allMovies} />}
       {hasNextPage && (
         <button
-          className="mt-6 p-3 bg-red-700 rounded-lg hover:bg-red-600"
+          className={styles.loadMoreButton}
           onClick={() => fetchNextPage()}
           disabled={isFetching}
         >

@@ -1,4 +1,4 @@
-import Navbar from "./components/Navbar";
+import Navbar from "./components/global/Navbar";
 import { Routes, Route } from "react-router-dom";
 import LikedMovies from "./pages/LikedMovies";
 import Home from "./pages/Home";
