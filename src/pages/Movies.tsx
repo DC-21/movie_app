@@ -1,8 +1,8 @@
 import React from "react";
 import { useInfiniteQuery } from "react-query";
-import { getPopularMovies, PopularMoviesResponse } from "../Api/Api";
+import { getPopularMovies, PopularMoviesResponse } from "../Hooks/FetchMovies";
 
-const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500"; // Base URL for movie posters
+const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const Movies: React.FC = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
@@ -40,7 +40,11 @@ const Movies: React.FC = () => {
               <li key={movie.id}>
                 <h3>{movie.title}</h3>
                 <img
-                  src={`${BASE_IMAGE_URL}${movie.poster_path}`}
+                  src={
+                    movie.poster_path.startsWith("http")
+                      ? movie.poster_path
+                      : `${BASE_IMAGE_URL}${movie.poster_path}`
+                  }
                   alt={`${movie.title} Poster`}
                   style={{ maxWidth: "200px" }}
                 />
