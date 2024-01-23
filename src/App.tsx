@@ -1,7 +1,7 @@
-import Movies from "./pages/Movies";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import LikedMovies from "./pages/LikedMovies";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <Navbar />
 
       <Routes>
-        <Route path="/" Component={Movies} />
+        <Route path="/" Component={Home} />
         <Route path="/liked" Component={LikedMovies} />
       </Routes>
     </>

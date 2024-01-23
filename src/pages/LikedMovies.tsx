@@ -10,7 +10,7 @@ const LikedMovies: React.FC = () => {
   const likedMoviesData = Object.values(likedMovies);
 
   return (
-    <div className="grid lg:grid-cols-5 md:grid-cols-3 gap-6 mt-4">
+    <div className="grid lg:grid-cols-5 md:grid-cols-3 gap-6 mt-4 w-full p-10">
       {likedMoviesData.length > 0 ? (
         likedMoviesData.map((movie) => (
           <li
