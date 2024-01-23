@@ -5,3 +5,9 @@
 * {
   font-family: "Roboto", sans-serif;
 }
+
+body {
+  overflow-x: hidden;
+  background-color: #1b1c22;
+  color: white;
+}
