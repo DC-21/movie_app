@@ -2,13 +2,17 @@ import React from "react";
 import { useInfiniteQuery } from "react-query";
 import { getPopularMovies, PopularMoviesResponse } from "../Hooks/FetchMovies";
 import { Movie } from "../types/interface";
+import IonIcon from "@reacticons/ionicons";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
-  <ul className="movie-grid grid grid-cols-5 gap-4 mt-4">
+  <ul className="movie-grid grid grid-cols-5 gap-6 mt-4">
     {movies.map((movie) => (
-      <li key={movie.id} className="flex flex-col shadow shadow-slate-900">
+      <li
+        key={movie.id}
+        className="flex flex-col shadow shadow-slate-900 cursor-pointer"
+      >
         <img
           src={
             movie.poster_path.startsWith("http")
@@ -16,10 +20,18 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
               : `${BASE_IMAGE_URL}${movie.poster_path}`
           }
           alt={`${movie.title} Poster`}
-          className="w-full h-[300px] rounded"
+          className="w-full h-[300px] rounded-lg"
         />
 
         <h3 className="text-white mt-4">Title: {movie.title}</h3>
+        <div className="w-full flex gap-4">
+          <a href="">
+            <IonIcon name="heart" size="large" />
+          </a>
+          <a href="">
+            <IonIcon name="heart-dislike" size="large" />
+          </a>
+        </div>
       </li>
     ))}
   </ul>
