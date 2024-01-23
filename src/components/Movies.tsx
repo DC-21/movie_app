@@ -1,11 +1,19 @@
 import React from "react";
 import { useInfiniteQuery } from "react-query";
-import { getPopularMovies, PopularMoviesResponse } from "../Hooks/FetchMovies";
-import { Movie } from "../types/interface";
+import { getPopularMovies } from "../Hooks/FetchMovies";
+import { Movie, PopularMoviesResponse } from "../types/interface";
 import IonIcon from "@reacticons/ionicons";
 import { useMovieStore } from "../store/store";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
+const renderStarClassName = (movie: Movie, index: number) => {
+  const starCount = Math.floor(movie.vote_average / 2);
+
+  return `text-yellow-500 mr-1 ${
+    index < starCount ? "text-yellow-500" : "text-yellow-100"
+  }`;
+};
 
 const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
   const { likedMovies, toggleLike } = useMovieStore();
@@ -29,6 +37,19 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
 
           <div className="absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
             <h3 className="text-white">{movie.title}</h3>
+            <p className="text-gray-400 text-sm py-1">{movie.release_date}</p>
+            <div className="flex items-center just py-1">
+              {Array(5)
+                .fill(null)
+                .map((_, index) => (
+                  <IonIcon
+                    key={index}
+                    name="star"
+                    className={renderStarClassName(movie, index)}
+                  />
+                ))}
+              <p className="text-gray-400 text-sm">{movie.vote_average}</p>
+            </div>
             <p className="text-gray-400 text-sm">{movie.overview}</p>
           </div>
 
@@ -82,7 +103,7 @@ const Movies: React.FC = () => {
 
   return (
     <div className="text-lg w-full justify-center items-center p-10">
-      <h1>Popular Movies</h1>
+      <h1 className="text-2xl font-bold underline">Popular Movies</h1>
       {allMovies && allMovies.length > 0 && <MovieGrid movies={allMovies} />}
       {hasNextPage && (
         <button

@@ -5,7 +5,7 @@ import IonIcon from "@reacticons/ionicons";
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const LikedMovies: React.FC = () => {
-  const { likedMovies, toggleLike } = useMovieStore(); // Access toggleLike function
+  const { likedMovies, toggleLike } = useMovieStore();
 
   const likedMoviesData = Object.values(likedMovies);
 

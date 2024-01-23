@@ -14,3 +14,11 @@ export interface Movie {
   vote_average: number;
   vote_count: number;
 }
+
+export interface PopularMoviesResponse {
+  length: number;
+  slice(arg0: number, arg1: number): Movie[];
+  page: number;
+  total_pages: number;
+  results: Movie[];
+}

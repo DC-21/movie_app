@@ -1,10 +1,4 @@
-import { Movie } from "../types/interface";
-
-export interface PopularMoviesResponse {
-  page: number;
-  total_pages: number;
-  results: Movie[];
-}
+import { PopularMoviesResponse } from "../types/interface";
 
 const API_KEY = "d0f5f2e135336200362af8a1a73acb17";
 const BASE_URL = "https://api.themoviedb.org/3";
