@@ -3,40 +3,50 @@ import { useInfiniteQuery } from "react-query";
 import { getPopularMovies, PopularMoviesResponse } from "../Hooks/FetchMovies";
 import { Movie } from "../types/interface";
 import IonIcon from "@reacticons/ionicons";
+import { useMovieStore } from "../store/store";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
-const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
-  <ul className="movie-grid grid grid-cols-5 gap-6 mt-4">
-    {movies.map((movie) => (
-      <li
-        key={movie.id}
-        className="flex flex-col shadow shadow-slate-900 cursor-pointer"
-      >
-        <img
-          src={
-            movie.poster_path.startsWith("http")
-              ? movie.poster_path
-              : `${BASE_IMAGE_URL}${movie.poster_path}`
-          }
-          alt={`${movie.title} Poster`}
-          className="w-full h-[300px] rounded-lg"
-        />
+const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
+  const { likedMovies, toggleLike } = useMovieStore();
 
-        <h3 className="text-white mt-4">Title: {movie.title}</h3>
-        <div className="w-full flex gap-4">
-          <a href="">
-            <IonIcon className="text-red-700" name="heart" size="large" />
-          </a>
-          <a href="">
-            <IonIcon name="heart-dislike" size="large" />
-          </a>
-        </div>
-      </li>
-    ))}
-  </ul>
-);
+  return (
+    <ul className=" grid lg:grid-cols-5 md:grid-cols-3 gap-6 mt-4">
+      {movies.map((movie) => (
+        <li
+          key={movie.id}
+          className="flex flex-col shadow group cursor-pointer relative  rounded-lg overflow-hidden"
+        >
+          <img
+            src={
+              movie.poster_path.startsWith("http")
+                ? movie.poster_path
+                : `${BASE_IMAGE_URL}${movie.poster_path}`
+            }
+            alt={`${movie.title} Poster`}
+            className="w-full h-96 object-cover"
+          />
 
+          <div className=" absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
+            <h3 className="text-white">{movie.title}</h3>
+          </div>
+          <button
+            onClick={() => toggleLike(movie.id)}
+            className=" absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center"
+          >
+            <IonIcon
+              className={` ${
+                likedMovies[movie.id] ? "text-red-700" : "text-red-100"
+              } text-lg`}
+              name="heart"
+            />
+            {/* ... other icons as needed */}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
 const Movies: React.FC = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useInfiniteQuery<PopularMoviesResponse>(
