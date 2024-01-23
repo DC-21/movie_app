@@ -6,13 +6,9 @@ import { Movie } from "../types/interface";
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
-  <ul className="movie-grid grid grid-cols-4 gap-4">
+  <ul className="movie-grid grid grid-cols-5 gap-4 mt-4">
     {movies.map((movie) => (
-      <li
-        key={movie.id}
-        className="flex flex-col items-center shadow shadow-white"
-      >
-        <h3 className="text-white">{movie.title}</h3>
+      <li key={movie.id} className="flex flex-col shadow shadow-slate-900">
         <img
           src={
             movie.poster_path.startsWith("http")
@@ -20,8 +16,10 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
               : `${BASE_IMAGE_URL}${movie.poster_path}`
           }
           alt={`${movie.title} Poster`}
-          className="w-full h-[400px] rounded"
+          className="w-full h-[300px] rounded"
         />
+
+        <h3 className="text-white mt-4">Title: {movie.title}</h3>
       </li>
     ))}
   </ul>
