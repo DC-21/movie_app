@@ -6,9 +6,12 @@ import { Movie } from "../types/interface";
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
-  <ul className="movie-grid grid grid-cols-3 gap-4">
+  <ul className="movie-grid grid grid-cols-4 gap-4">
     {movies.map((movie) => (
-      <li key={movie.id} className="flex flex-col items-center">
+      <li
+        key={movie.id}
+        className="flex flex-col items-center shadow shadow-white"
+      >
         <h3 className="text-white">{movie.title}</h3>
         <img
           src={
@@ -17,7 +20,7 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
               : `${BASE_IMAGE_URL}${movie.poster_path}`
           }
           alt={`${movie.title} Poster`}
-          className="max-w-full h-auto"
+          className="w-full h-[400px] rounded"
         />
       </li>
     ))}
@@ -56,7 +59,7 @@ const Movies: React.FC = () => {
   );
 
   return (
-    <div className="text-lg w-full justify-center items-center">
+    <div className="text-lg w-full justify-center items-center p-10">
       <h1>Popular Movies</h1>
       {allMovies && allMovies.length > 0 && <MovieGrid movies={allMovies} />}
       {hasNextPage && (
