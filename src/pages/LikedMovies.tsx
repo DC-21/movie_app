@@ -2,6 +2,7 @@ import React from "react";
 import { useMovieStore } from "../store/store";
 import IonIcon from "@reacticons/ionicons";
 import { Movie } from "../types/interface";
+import * as likedstyles from "../styles/likedstyles";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
@@ -10,22 +11,18 @@ const LikedMovies: React.FC = () => {
 
   const renderStarClassName = (movie: Movie, index: number) => {
     const starCount = Math.floor(movie.vote_average / 2);
-
-    return `text-yellow-500 mr-1 ${
-      index < starCount ? "text-yellow-500" : "text-yellow-100"
+    return `${likedstyles.starIcon} ${
+      index < starCount ? likedstyles.starIcon : "text-yellow-100"
     }`;
   };
 
   const likedMoviesData = Object.values(likedMovies);
 
   return (
-    <div className="grid lg:grid-cols-5 md:grid-cols-3 gap-6 mt-4 w-full p-10">
+    <div className={likedstyles.likedMoviesContainer}>
       {likedMoviesData.length > 0 ? (
         likedMoviesData.map((movie) => (
-          <li
-            key={movie.id}
-            className="flex flex-col shadow group cursor-pointer relative rounded-lg overflow-hidden"
-          >
+          <li key={movie.id} className={likedstyles.movieContainer}>
             <img
               src={
                 movie.poster_path.startsWith("http")
@@ -33,13 +30,15 @@ const LikedMovies: React.FC = () => {
                   : `${BASE_IMAGE_URL}${movie.poster_path}`
               }
               alt={`${movie.title} Poster`}
-              className="w-full h-96 object-cover"
+              className={likedstyles.movieImage}
             />
 
-            <div className="absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
-              <h3 className="text-white">{movie.title}</h3>
-              <p className="text-gray-400 text-sm py-1">{movie.release_date}</p>
-              <div className="flex items-center just py-1">
+            <div className={likedstyles.movieDetails}>
+              <h3 className={likedstyles.movieTitle}>{movie.title}</h3>
+              <p className={likedstyles.movieReleaseDate}>
+                {movie.release_date}
+              </p>
+              <div className={likedstyles.movieRatingContainer}>
                 {Array(5)
                   .fill(null)
                   .map((_, index) => (
@@ -49,21 +48,21 @@ const LikedMovies: React.FC = () => {
                       className={renderStarClassName(movie, index)}
                     />
                   ))}
-                <p className="text-gray-400 text-sm">{movie.vote_average}</p>
+                <p className={likedstyles.movieRating}>{movie.vote_average}</p>
               </div>
-              <p className="text-gray-400 text-sm">{movie.overview}</p>
+              <p className={likedstyles.movieOverview}>{movie.overview}</p>
             </div>
 
             <button
-              className="absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center"
+              className={likedstyles.likeButton}
               onClick={() => toggleLike(movie.id, movie)}
             >
-              <IonIcon className="text-red-700 text-lg" name="heart" />
+              <IonIcon className={likedstyles.heartIcon} name="heart" />
             </button>
           </li>
         ))
       ) : (
-        <p className="text-center">No liked movies yet.</p>
+        <p className={likedstyles.noLikedMoviesText}>No liked movies yet.</p>
       )}
     </div>
   );

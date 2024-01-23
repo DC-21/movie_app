@@ -4,7 +4,7 @@ import { getPopularMovies } from "../Hooks/FetchMovies";
 import { Movie, PopularMoviesResponse } from "../types/interface";
 import IonIcon from "@reacticons/ionicons";
 import { useMovieStore } from "../store/store";
-import * as styles from "../styles/styles";
+import * as styles from "../styles/movie";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
