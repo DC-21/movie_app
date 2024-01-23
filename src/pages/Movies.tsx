@@ -32,7 +32,7 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
           </div>
 
           <button
-            onClick={() => toggleLike(movie.id)}
+            onClick={() => toggleLike(movie.id, movie)}
             className="absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center"
           >
             <IonIcon
