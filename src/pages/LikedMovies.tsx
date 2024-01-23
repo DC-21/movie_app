@@ -1,11 +1,20 @@
 import React from "react";
 import { useMovieStore } from "../store/store";
 import IonIcon from "@reacticons/ionicons";
+import { Movie } from "../types/interface";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const LikedMovies: React.FC = () => {
   const { likedMovies, toggleLike } = useMovieStore();
+
+  const renderStarClassName = (movie: Movie, index: number) => {
+    const starCount = Math.floor(movie.vote_average / 2);
+
+    return `text-yellow-500 mr-1 ${
+      index < starCount ? "text-yellow-500" : "text-yellow-100"
+    }`;
+  };
 
   const likedMoviesData = Object.values(likedMovies);
 
@@ -29,6 +38,20 @@ const LikedMovies: React.FC = () => {
 
             <div className="absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
               <h3 className="text-white">{movie.title}</h3>
+              <p className="text-gray-400 text-sm py-1">{movie.release_date}</p>
+              <div className="flex items-center just py-1">
+                {Array(5)
+                  .fill(null)
+                  .map((_, index) => (
+                    <IonIcon
+                      key={index}
+                      name="star"
+                      className={renderStarClassName(movie, index)}
+                    />
+                  ))}
+                <p className="text-gray-400 text-sm">{movie.vote_average}</p>
+              </div>
+              <p className="text-gray-400 text-sm">{movie.overview}</p>
             </div>
 
             <button
