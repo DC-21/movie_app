@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="bg-[#1b1c22]">
+      <div>
         <Navbar />
         <Movies />
       </div>

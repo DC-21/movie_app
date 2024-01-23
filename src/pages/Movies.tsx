@@ -31,7 +31,7 @@ const Movies: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="bg-[#1b1c22] text-lg">
       <h1>Popular Movies</h1>
       <ul>
         {data?.pages.map((page, pageIndex) => (
