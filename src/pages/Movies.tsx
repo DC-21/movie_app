@@ -26,7 +26,7 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => (
         <h3 className="text-white mt-4">Title: {movie.title}</h3>
         <div className="w-full flex gap-4">
           <a href="">
-            <IonIcon name="heart" size="large" />
+            <IonIcon className="text-red-700" name="heart" size="large" />
           </a>
           <a href="">
             <IonIcon name="heart-dislike" size="large" />
