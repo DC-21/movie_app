@@ -11,11 +11,11 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
   const { likedMovies, toggleLike } = useMovieStore();
 
   return (
-    <ul className=" grid lg:grid-cols-5 md:grid-cols-3 gap-6 mt-4">
+    <ul className="grid lg:grid-cols-5 md:grid-cols-3 gap-6 mt-4">
       {movies.map((movie) => (
         <li
           key={movie.id}
-          className="flex flex-col shadow group cursor-pointer relative  rounded-lg overflow-hidden"
+          className="flex flex-col shadow group cursor-pointer relative rounded-lg overflow-hidden"
         >
           <img
             src={
@@ -27,26 +27,27 @@ const MovieGrid: React.FC<{ movies: Movie[] }> = ({ movies }) => {
             className="w-full h-96 object-cover"
           />
 
-          <div className=" absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
+          <div className="absolute translate-y-full p-2 group-hover:translate-y-0 duration-700 ease-in-out bottom-0 bg-[#262830] w-full">
             <h3 className="text-white">{movie.title}</h3>
           </div>
+
           <button
             onClick={() => toggleLike(movie.id)}
-            className=" absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center"
+            className="absolute top-3 left-3 bg-[#262830] rounded-lg p-2 flex items-center justify-center"
           >
             <IonIcon
-              className={` ${
+              className={`${
                 likedMovies[movie.id] ? "text-red-700" : "text-red-100"
               } text-lg`}
               name="heart"
             />
-            {/* ... other icons as needed */}
           </button>
         </li>
       ))}
     </ul>
   );
 };
+
 const Movies: React.FC = () => {
   const { data, error, fetchNextPage, hasNextPage, isFetching, isLoading } =
     useInfiniteQuery<PopularMoviesResponse>(
@@ -83,8 +84,12 @@ const Movies: React.FC = () => {
       <h1>Popular Movies</h1>
       {allMovies && allMovies.length > 0 && <MovieGrid movies={allMovies} />}
       {hasNextPage && (
-        <button onClick={() => fetchNextPage()} disabled={isFetching}>
-          {isFetching ? "Loading more..." : "Load More"}
+        <button
+          className="mt-6 p-3 bg-red-700 rounded-lg hover:bg-red-600"
+          onClick={() => fetchNextPage()}
+          disabled={isFetching}
+        >
+          {isFetching ? "" : "Load More"}
         </button>
       )}
     </div>

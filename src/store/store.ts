@@ -6,7 +6,8 @@ interface MovieState {
 }
 
 export const useMovieStore = create<MovieState>((set) => ({
-  likedMovies: {},
+  likedMovies: JSON.parse(localStorage.getItem("likedMovies")!) || {},
+
   toggleLike: (movieId) =>
     set((state) => {
       const updatedLikedMovies = { ...state.likedMovies };

@@ -1,17 +1,18 @@
-import { QueryClient, QueryClientProvider } from "react-query";
 import Movies from "./pages/Movies";
 import Navbar from "./components/Navbar";
-
-const queryClient = new QueryClient();
+import { Routes, Route } from "react-router-dom";
+import LikedMovies from "./pages/LikedMovies";
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <div>
-        <Navbar />
-        <Movies />
-      </div>
-    </QueryClientProvider>
+    <>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" Component={Movies} />
+        <Route path="/liked" Component={LikedMovies} />
+      </Routes>
+    </>
   );
 }
 
